@@ -1,0 +1,33 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+// for Golang
+package goiotunnel;
+
+service iotunnel{
+    rpc Close (CloseRequest) returns (google.protobuf.Empty);
+    rpc I2COpen (I2COpenRequest) returns (OpenReply);
+    rpc I2CTx (I2CTxRequest) returns (I2CTxReply);
+}
+
+message CloseRequest {
+    uint32 handle = 1;
+}
+
+message I2COpenRequest {
+    string name = 1;
+}
+
+message OpenReply {
+    uint32 handle = 1;
+}
+
+message I2CTxRequest {
+    uint32 handle = 1;
+    uint32 address = 2;
+    bytes txData = 3;
+    uint32 rxLength = 4;
+}
+
+message I2CTxReply {
+    bytes rxData = 1;
+}
